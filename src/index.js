@@ -10,6 +10,6 @@
 
 export default {
 	async fetch(request, env, ctx) {
-		return new Response('Hello Mum!');
+		return new Response('He is not here, He is risen!');
 	},
 };
