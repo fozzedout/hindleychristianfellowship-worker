@@ -14,6 +14,12 @@ import { createMimeMessage } from "mimetext";
 export default {
 	async fetch(request, env, ctx) {
 
+		if ( request.method !== "POST" ) {
+			return new Response('He is risen!');
+		}
+
+		//const data = await request.json();
+
 
 		const sender = "contact@hindleychristianfellowship.co.uk";
 		const recipient = "fozzedout@gmail.com";
