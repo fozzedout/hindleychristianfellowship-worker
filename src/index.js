@@ -57,9 +57,9 @@ export default {
 
 
 	  const { url } = request;
-	  //if (url.includes("form")) {
-	  //  return rawHtmlResponse(someForm);
-	  //}
+	  if (url.includes("form")) {
+		return rawHtmlResponse(request.rawBody);
+	  }
 	  if (request.method === "POST") {
 		const reqBody = await readRequestBody(request);
 		const retBody = `The request body sent in was ${reqBody}`;
