@@ -11,6 +11,13 @@
 import { EmailMessage } from "cloudflare:email";
 import { createMimeMessage } from "mimetext";
 
+const corsHeaders = {
+  'Access-Control-Allow-Headers': '*', // What headers are allowed. * is wildcard. Instead of using '*', you can specify a list of specific headers that are allowed, such as: Access-Control-Allow-Headers: X-Requested-With, Content-Type, Accept, Authorization.
+  'Access-Control-Allow-Methods': 'GET,POST,HEAD', // Allowed methods. Others could be GET, PUT, DELETE etc.
+  'Access-Control-Allow-Origin': '*', // This is URLs that are allowed to access the server. * is the wildcard character meaning any URL can.
+}
+
+
 export default {
 	async fetch(request, env, ctx) {
 
@@ -23,11 +30,14 @@ export default {
 				return new Response(html, {
 				  headers: {
 					"content-type": "text/html;charset=UTF-8",
+  'Access-Control-Allow-Headers': '*', // What headers are allowed. * is wildcard. Instead of using '*', you can specify a list of specific headers that are allowed, such as: Access-Control-Allow-Headers: X-Requested-With, Content-Type, Accept, Authorization.
+  'Access-Control-Allow-Methods': 'GET,POST,HEAD', // Allowed methods. Others could be GET, PUT, DELETE etc.
+  'Access-Control-Allow-Origin': '*', // This is URLs that are allowed to access the server. * is the wildcard character meaning any URL can.
 				  },
 				});
 			  }
-		
-			  
+
+
     /**
      * readRequestBody reads in the incoming request body
      * Use await readRequestBody(..) in an async function to get the string
@@ -63,19 +73,19 @@ export default {
 	  if (request.method === "POST") {
 		const reqBody = await readRequestBody(request);
 		const retBody = `The request body sent in was ${reqBody}`;
-		return new Response(retBody);
+		return new Response(retBody, { headers: corsHeaders });
 	  } else if (request.method === "GET") {
-		return new Response("The request was a GET");
+		return new Response("The request was a GET", { headers: corsHeaders });
 	  }
 
 		if ( request.method !== "POST" ) {
-			return new Response('He is risen!');
+			return new Response('He is risen!', { headers: corsHeaders });
 		}
 
 		try {
 			const data = await request.json();
 		} catch (error) {
-			return new Response( error.message );
+			return new Response( error.message, { headers: corsHeaders } );
 
 		}
 
@@ -101,7 +111,7 @@ export default {
 		}
 */
 
-		return new Response('He is not here, He is risen!');
+		return new Response('He is not here, He is risen!', { headers: corsHeaders });
 	},
 };
 
