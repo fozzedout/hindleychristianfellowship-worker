@@ -36,7 +36,8 @@ const sendEmail = async (env, name, email, message) => {
 		contentType: "text/plain",
 		data: `Name: ${name}
 Email: ${email}
-Comment: ${message}`
+Comment:
+${message}`
 	});
 
 	var message = new EmailMessage( sender, recipient, msg.asRaw() );
