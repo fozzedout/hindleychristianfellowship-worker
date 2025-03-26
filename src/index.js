@@ -77,7 +77,7 @@ export default {
 			}
 
 			return new Response(
-				sendEmail(data.name, data.email, data.comment),
+				await sendEmail(data.name, data.email, data.comment),
 				{ headers: corsHeaders }
 			);
 		}
