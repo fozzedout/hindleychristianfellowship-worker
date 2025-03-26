@@ -24,7 +24,7 @@ const corsWhitelist = [
 	"https://hartcommonchurch.uk",
 ];
 
-const sendEmail = async (name, email, message) => {
+const sendEmail = async (env, name, email, message) => {
 	const sender = "contact@hindleychristianfellowship.co.uk";
 	const recipient = "fozzedout@gmail.com";
 
@@ -77,7 +77,7 @@ export default {
 			}
 
 			return new Response(
-				await sendEmail(data.name, data.email, data.comment),
+				await sendEmail(env, data.name, data.email, data.comment),
 				{ headers: corsHeaders }
 			);
 		}
