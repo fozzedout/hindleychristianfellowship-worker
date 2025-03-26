@@ -68,12 +68,12 @@ export default {
 
 		// Handle OPTIONS preflight request
 		if (request.method === 'OPTIONS') {
-			event.respondWith(
+
 				new Response(null, {
 					status: 204,
 					headers: corsHeaders,
-				})
-			);
+				});
+
 		} else if ( request.method === "POST" ) {
 			return new Response(
 				sendEmail(data.name, data.email, data.comment),
