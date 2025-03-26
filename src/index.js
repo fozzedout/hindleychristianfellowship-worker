@@ -59,24 +59,23 @@ export default {
 			return new Response( `Invalid header: ${origin}` );
 		}
 
-		let data;
-		try {
-			data = await request.json();
-		} catch (error) {
-			return new Response( error.message, { headers: corsHeaders } );
-		}
-
 		corsHeaders["Access-Control-Allow-Origin"] = request.headers.origin;
 
 		// Handle OPTIONS preflight request
 		if (request.method === 'OPTIONS') {
-
 				new Response(null, {
 					status: 204,
 					headers: corsHeaders,
 				});
 
 		} else if ( request.method === "POST" ) {
+			let data;
+			try {
+				data = await request.json();
+			} catch (error) {
+				return new Response( error.message, { headers: corsHeaders } );
+			}
+
 			return new Response(
 				sendEmail(data.name, data.email, data.comment),
 				{ headers: corsHeaders }
