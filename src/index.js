@@ -53,8 +53,10 @@ Comment: ${message}`
 
 export default {
 	async fetch(request, env, ctx) {
-		if ( !corsWhitelist.includes(request.headers.origin) ) {
-			return new Response( `Invalid header: ${request.headers.origin}` );
+		    const origin = request.headers.get('Origin');
+
+		if ( !origin || !corsWhitelist.includes(origin) ) {
+			return new Response( `Invalid header: ${origin}` );
 		}
 
 		let data;
