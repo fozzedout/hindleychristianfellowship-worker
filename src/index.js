@@ -59,7 +59,7 @@ export default {
 			return new Response( `Invalid header: ${origin}` );
 		}
 
-		corsHeaders["Access-Control-Allow-Origin"] = request.headers.origin;
+		corsHeaders["Access-Control-Allow-Origin"] = origin;
 
 		// Handle OPTIONS preflight request
 		if (request.method === 'OPTIONS') {
