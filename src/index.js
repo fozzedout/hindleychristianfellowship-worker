@@ -63,7 +63,7 @@ export default {
 
 		// Handle OPTIONS preflight request
 		if (request.method === 'OPTIONS') {
-				new Response(null, {
+				return new Response(null, {
 					status: 204,
 					headers: corsHeaders,
 				});
