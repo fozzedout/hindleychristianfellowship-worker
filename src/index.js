@@ -22,9 +22,10 @@ const corsWhitelist = [
 	"https://hindleychristianfellowship.uk",
 	"https://hartcommonchurch.co.uk",
 	"https://hartcommonchurch.uk",
+	"file://"
 ];
 
-const sendEmail = async (env, name, email, message) => {
+const sendEmail = async (env, data) => {
 	const sender = "contact@hindleychristianfellowship.co.uk";
 	const recipient = "fozzedout@gmail.com";
 
@@ -34,16 +35,19 @@ const sendEmail = async (env, name, email, message) => {
 	msg.setSubject( "Hindley Christian Fellowship Website Contact" );
 	msg.addMessage({
 		contentType: "text/plain",
-		data: `Name: ${name}
-Email: ${email}
-Comment:
-${message}`
+		data: `Name: ${data.name}
+Email: ${data.email}
+Message:
+${data.comment}`
 	});
 
 	var message = new EmailMessage( sender, recipient, msg.asRaw() );
 
 	try {
-		await env.emailBinding.send( message );
+		// defence against bots - if the bots fill in the hidden ishuman value then
+		// do NOT send an email, but act as if it has worked.
+		if ( data.ishuman === "" )
+			await env.emailBinding.send( message );
 	} catch (error) {
 		return error.message;
 	}
@@ -78,7 +82,7 @@ export default {
 			}
 
 			return new Response(
-				await sendEmail(env, data.name, data.email, data.comment),
+				await sendEmail(env, data),
 				{ headers: corsHeaders }
 			);
 		}
