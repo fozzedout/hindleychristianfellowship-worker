@@ -58,7 +58,7 @@ ${data.comment}`
 
 const generateResponse = (statusCode, message) => {
 	const data = { message: message };
-	return new Response( JSON.stringify( data ), { status: statusCode, headers: corsheaders } );
+	return new Response( JSON.stringify( data ), { status: statusCode, headers: corsHeaders } );
 }
 
 
